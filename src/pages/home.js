@@ -4,12 +4,13 @@ import { getPosts } from '../actions/posts'
 import { Grid, Transition } from 'semantic-ui-react';
 import PostCard from '../components/PostCard'
 
-export default function Home() {
+function Home() {
 
 
   const posts = useSelector(state => state.posts.posts)
   const dispatch = useDispatch()
 
+  
   useEffect(() => {
     dispatch(getPosts())
   }, [dispatch])
@@ -24,7 +25,7 @@ export default function Home() {
         <Transition.Group>
           {posts &&
             posts.map((post) => (
-              <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
+              <Grid.Column key={post._id} style={{ marginBottom: 20 }}>
                 <PostCard post={post} />
               </Grid.Column>
             ))}
@@ -34,3 +35,5 @@ export default function Home() {
   );
 
 }
+
+export default Home;

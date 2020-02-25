@@ -1,5 +1,7 @@
 import React from 'react';
 import Home from '../pages/home';
+import Login from '../pages/login';
+import Register from '../pages/register';
 
 const routes = [
     {
@@ -8,7 +10,29 @@ const routes = [
         main: () => {
             return (
                 <div>
-                    <Home/>
+                    <Home />
+                </div>
+            )
+        }
+    },
+    {
+        path: '/login',
+        exact: true,
+        main: ({ history }) => {
+            return (
+                <div>
+                    <Login history={history} />
+                </div>
+            )
+        }
+    },
+    {
+        path: '/register',
+        exact: true,
+        main: ({ history }) => {
+            return (
+                <div>
+                    <Register history={history} />
                 </div>
             )
         }

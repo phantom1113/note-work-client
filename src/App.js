@@ -6,12 +6,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from './routes/routes';
 import { Provider } from 'react-redux';
 import store from './store/store'
+import MenuBar from './components/MenuBar'
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <Container>
+          <MenuBar/>
           <Switch>
             {showContentMenus(routes)}
           </Switch>
