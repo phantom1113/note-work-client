@@ -4,9 +4,10 @@ const initialState = {
     user: {
         token: localStorage.getItem('jwtToken') || ''
     },
-    isAuthenticated: (localStorage.getItem('jwtToken')) ? true :false,
+    isAuthenticated: (localStorage.getItem('jwtToken')) ? true : false,
     errors: {}
 };
+
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {

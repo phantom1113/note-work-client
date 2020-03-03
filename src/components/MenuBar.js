@@ -19,11 +19,12 @@ function MenuBar() {
     if (user.token !== '') {
         const decodedToken = jwtDecode(user.token);
 
-        if (decodedToken.exp * 1000 < Date.now()) {
-
-        } else {
-            initialState.user = decodedToken;
-        }
+        // if (decodedToken.exp * 1000 < Date.now()) {
+        //     localStorage.removeItem('jwtToken');
+        // } else {
+        //     initialState.user = decodedToken;
+        // }
+        initialState.user = decodedToken;
     }
 
     const pathname = window.location.pathname;
