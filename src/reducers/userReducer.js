@@ -1,10 +1,12 @@
 import * as Types from '../actions/types';
+import { checkToken } from '../util/convertToken';
+
 
 const initialState = {
     user: {
-        token: localStorage.getItem('jwtToken') || ''
+        token: checkToken(localStorage.getItem('jwtToken')) ? localStorage.getItem('jwtToken') : ''
     },
-    isAuthenticated: (localStorage.getItem('jwtToken')) ? true : false,
+    isAuthenticated: checkToken(localStorage.getItem('jwtToken')) ? true : false,
     errors: {}
 };
 
@@ -35,6 +37,21 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 errors: action.errors,
                 isAuthenticated: false
+            }
+        case Types.TOKEN_EXPIRED:
+            return {
+                user: {
+                    token: ''
+                },
+                errors: {
+                    errors:"Token is expired"
+                },
+                isAuthenticated: false
+            }
+        case Types.CLEAR_ERROR_USER:
+            return {
+                ...state,
+                errors:{}
             }
         case Types.LOGOUT_USER:
             return {

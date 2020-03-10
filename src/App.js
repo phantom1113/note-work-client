@@ -7,13 +7,15 @@ import routes from './routes/routes';
 import { Provider } from 'react-redux';
 import store from './store/store'
 import MenuBar from './components/MenuBar'
+import ExpireTokenMessage from './components/ExpireTokeMessage';
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <Container>
-          <MenuBar/>
+          <MenuBar />
+          <ExpireTokenMessage/>
           <Switch>
             {showContentMenus(routes)}
           </Switch>

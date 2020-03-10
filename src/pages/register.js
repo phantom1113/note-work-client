@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button } from 'semantic-ui-react';
-import { Redirect } from 'react-router-dom';
+import { Form, Button, Loader } from 'semantic-ui-react';
 import { useForm } from '../util/form';
 import { registerUser } from '../actions/user';
 
@@ -26,7 +25,8 @@ function Register(props) {
 
 
     if (isAuthenticated) {
-        return <Redirect to='/'/>;
+        props.history.goBack();
+        return <Loader active inline='centered' />
     };
     return (
         <div className='form-container'>

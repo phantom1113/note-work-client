@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as Constants from './../constants/constants'
+import * as Constants from './../constants/constants';
 import * as Types from './types';
 
 
@@ -51,5 +51,13 @@ export const logoutUser = () => dispatch => {
   localStorage.removeItem('jwtToken');
   dispatch({
     type: Types.LOGOUT_USER,
+  });
+}
+
+//Clear error message user
+
+export const clearErrorUser = () => dispatch => {
+  dispatch({
+    type: Types.CLEAR_ERROR_USER
   })
 }

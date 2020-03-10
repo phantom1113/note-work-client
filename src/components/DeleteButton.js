@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Confirm, Icon } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux'
 import { deletePost } from '../actions/posts';
+import { deleteComment } from '../actions/comments';
 
 
+function DeleteButton({ postId, commentId, callback }) {
 
-function DeleteButton({postId, callback}) {
+  const [confirmOpen, setConfirmOpen] = useState(false)
   
   const dispatch = useDispatch();
 
-  const DeletePostandComment = (id,callback) => {
-      if(callback){
-        dispatch(deletePost(id,callback));
+  const DeletePostandComment = (postId, commentId, callback) => {
+    if (callback) {
+      dispatch(deletePost(postId, callback));
+    } else {
+      if (commentId) {
+        dispatch(deleteComment(postId, commentId))
       } else {
-        dispatch(deletePost(id))
+        dispatch(deletePost(postId))
       }
+    }
   }
 
   return (
@@ -22,18 +28,23 @@ function DeleteButton({postId, callback}) {
       {/* <MyPopup
         // content={commentId ? 'Delete comment' : 'Delete post'}
         > */}
-        <Button
-          as="div"
-          color="red"
-          floated="right"
-          onClick={() => DeletePostandComment(postId, callback)}
-        >
-          <Icon name="trash" style={{ margin: 0 }} />
-        </Button>
+      <Button
+        as="div"
+        color="red"
+        floated="right"
+        onClick={() => setConfirmOpen(true)}
+      >
+        <Icon name="trash" style={{ margin: 0 }} />
+      </Button>
       {/* </MyPopup> */}
       <Confirm
-        // open={confirmOpen}
-        // onCancel={() => setConfirmOpen(false)}
+        content = {commentId ? 'Are you sure to delete this comment ?' : 'Are you sure to delete this post ?'}
+        open={confirmOpen}
+        onCancel={() => setConfirmOpen(false)}
+        onConfirm={()=> {
+          setConfirmOpen(false);
+          DeletePostandComment(postId, commentId, callback);
+        }}
       />
     </React.Fragment>
   );

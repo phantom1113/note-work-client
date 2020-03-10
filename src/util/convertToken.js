@@ -10,3 +10,15 @@ export const convertToken = (token) => {
         return user.username
     }
 }
+
+export const checkToken = (token) => {
+    if (token) {
+        if(jwtDecode(token).exp > Date.now() / 1000){
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}

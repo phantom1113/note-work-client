@@ -10,7 +10,7 @@ import { convertToken } from '../util/convertToken';
 
 function Home() {
   const dispatch = useDispatch()
-  const { posts, loading } = useSelector(state => state.posts)
+  const { posts, loading, errors } = useSelector(state => state.posts)
   const{ isAuthenticated, user } = useSelector(state => state.user)
   const nameAuth = convertToken(user.token ? user.token : '')
 
@@ -32,7 +32,7 @@ function Home() {
         (<Grid.Row>
           {isAuthenticated && (
             <Grid.Column>
-              <PostForm />
+              <PostForm errors={errors}/>
             </Grid.Column>
           )}
           <Transition.Group>

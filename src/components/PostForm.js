@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
 import { useForm } from '../util/form';
-import { createPost } from '../actions/posts';
+import { createPost, clearError } from '../actions/posts';
 
 
-function PostForm() {
+function PostForm(props) {
 
     const dispatch = useDispatch()
-
+    const {errors} = props.errors
     const { values, onChange, onSubmit } = useForm(createPostCallback, {
         body: '',
     });
@@ -28,19 +28,21 @@ function PostForm() {
                         name="body"
                         onChange={onChange}
                         value={values.body}
+                        error={errors? true: false}
+                        onFocus={() => dispatch(clearError())}
                     />
                     <Button type="submit" color="teal">
                         Submit
-          </Button>
+                    </Button>
                 </Form.Field>
             </Form>
-            {/* {error && (
+            {errors && (
                 <div className="ui error message" style={{ marginBottom: 20 }}>
                     <ul className="list">
-                        <li>{error.graphQLErrors[0].message}</li>
+                        <li>{errors}</li>
                     </ul>
                 </div>
-            )} */}
+            )}
         </>
     );
 }

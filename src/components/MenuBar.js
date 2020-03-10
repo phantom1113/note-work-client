@@ -8,7 +8,7 @@ import { logoutUser } from '../actions/user'
 
 
 
-function MenuBar() {
+function MenuBar(prop) {
     const { isAuthenticated, user } = useSelector(state => state.user)
     const dispatch = useDispatch()
 
@@ -34,6 +34,7 @@ function MenuBar() {
 
     const handleItemClick = (e, { name }) => setActiveItem(name);
 
+
     const menuBar = isAuthenticated ? (
         <Menu pointing secondary size='massive' color='teal'>
             <Menu.Item
@@ -45,6 +46,8 @@ function MenuBar() {
             <Menu.Menu position='right'>
                 <Menu.Item
                     name='logout'
+                    as={Link}
+                    to='/'
                     onClick={() => {
                         dispatch(logoutUser())
                     }}

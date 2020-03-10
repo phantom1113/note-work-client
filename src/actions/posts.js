@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { checkToken } from '../util/convertToken';
 import * as Constants from './../constants/constants'
 import * as Types from './types';
 
@@ -44,42 +45,55 @@ export const getPost = (postId) => dispatch => {
 
 //Create a post
 export const createPost = (value) => dispatch => {
-  axios.post(Constants.URL_POST, { body: value.body }, tokenConfig())
-    .then(res => {
-      dispatch({
-        type: Types.CREATE_POST,
-        post: res.data
+  if (checkToken(localStorage.getItem('jwtToken'))) {
+    axios.post(Constants.URL_POST, { body: value.body }, tokenConfig())
+      .then(res => {
+        dispatch({
+          type: Types.CREATE_POST,
+          post: res.data
+        })
+      }
+      ).catch(error => {
+        dispatch({
+          type: Types.CREATE_POST_FAIL,
+          errors: error.response.data
+        })
       })
-    }
-    ).catch(error => {
-      dispatch({
-        type: Types.CREATE_POST_FAIL,
-        errors: error.response.data
-      })
+  } else {
+    dispatch({
+      type: Types.TOKEN_EXPIRED
     })
+  }
 };
 
 //Delete post
 export const deletePost = (id, callback) => dispatch => {
-  axios.delete(Constants.URL_POST + `/${id}`, tokenConfig())
-    .then(res => {
-      dispatch({
-        type: Types.DELETE_POST,
-        id: id
+  if (checkToken(localStorage.getItem('jwtToken'))) {
+    axios.delete(Constants.URL_POST + `/${id}`, tokenConfig())
+      .then(res => {
+        dispatch({
+          type: Types.DELETE_POST,
+          id: id
+        })
       })
+      .then(() => {
+        if (callback) {
+          callback()
+        }
+      }).catch(error => {
+        console.log(error)
+      })
+  } else {
+    dispatch({
+      type: Types.TOKEN_EXPIRED
     })
-    .then(() => {
-      if (callback) {
-        callback()
-      }
-    }).catch(error => {
-      console.log(error)
-    })
+  }
 }
 
 //Like a post
 export const likePost = (id) => dispatch => {
-  axios.post(Constants.URL_POST + `/${id}`, {}, tokenConfig())
+  if (checkToken(localStorage.getItem('jwtToken'))) {
+    axios.post(Constants.URL_POST + `/${id}`, {}, tokenConfig())
     .then(res => {
       dispatch({
         type: Types.LIKE_POST,
@@ -88,6 +102,18 @@ export const likePost = (id) => dispatch => {
     }).catch(error => {
       console.log(error)
     })
+  } else {
+    dispatch({
+      type: Types.TOKEN_EXPIRED
+    })
+  }
+}
+
+//Clear error
+export const clearError = () => dispatch => {
+  dispatch({
+    type: Types.CLEAR_ERROR
+  })
 }
 
 const tokenConfig = () => {
@@ -104,3 +130,4 @@ const tokenConfig = () => {
 
   return config;
 }
+

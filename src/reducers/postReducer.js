@@ -52,10 +52,16 @@ const postsReducer = (state = initialState, action) => {
                 posts: posts,
                 loading: false
             }
+        case Types.CREATE_COMMENT_FAIL:
         case Types.CREATE_POST_FAIL:
             return {
                 ...state,
                 errors: action.errors
+            }
+        case Types.CLEAR_ERROR:
+            return {
+                ...state,
+                errors: {}
             }
         case Types.DELETE_POST:
             const prevDeletePosts = state.posts
@@ -63,6 +69,13 @@ const postsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: deletePosts,                
+            }
+        case Types.CREATE_COMMENT:
+        case Types.DELETE_COMMENT:
+        case Types.UPDATE_COMMENT:
+            return {
+                ...state,
+                post: action.post
             }
         default: return { ...state };
     }

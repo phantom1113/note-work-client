@@ -1,13 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { Form, Button } from 'semantic-ui-react';
+import { Form, Button, Loader } from 'semantic-ui-react';
 import { useForm } from '../util/form';
 import { loginUser } from '../actions/user'
 
 function Login(props) {
     const { isAuthenticated, errors } = useSelector(state => state.user)
-
 
     const dispatch = useDispatch()
 
@@ -21,7 +19,8 @@ function Login(props) {
     }
 
     if (isAuthenticated) {
-        return <Redirect to='/'/>;
+        props.history.goBack();
+        return <Loader active inline='centered' />
     };
     return (
         <div className='form-container'>
