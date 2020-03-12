@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 import { Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { logoutUser } from '../actions/user'
+import { logoutUser, clearErrorUser } from '../actions/user'
 
 
 
@@ -32,7 +32,10 @@ function MenuBar(prop) {
     const path = pathname === '/' ? 'home' : pathname.substr(1);
     const [activeItem, setActiveItem] = useState(path);
 
-    const handleItemClick = (e, { name }) => setActiveItem(name);
+    const handleItemClick = (e, { name }) =>{ 
+        setActiveItem(name);
+        dispatch(clearErrorUser())
+    };
 
 
     const menuBar = isAuthenticated ? (

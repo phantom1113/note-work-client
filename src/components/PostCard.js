@@ -7,10 +7,9 @@ import DeleteButton from '../components/DeleteButton';
 
 
 
-function PostCard({post: {body, createdAt, _id, username, comments, likes} , nameAuth}){
-
+function PostCard({post: {body, createdAt, _id, username, comments, likes} , nameAuth, centered}){
     return (
-        <Card>
+        <Card centered={centered} fluid >
             <Card.Content>
                 <Image
                     floated='right'

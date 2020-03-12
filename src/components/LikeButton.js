@@ -38,7 +38,7 @@ function LikeButton({ post: { _id, likeCount, likes } }) {
             </Button>
         )
     return (
-        <Button as='div' labelPosition='right' onClick={() => {
+        <Button as='div' style={{marginRight:'.5rem'}} labelPosition='right' onClick={() => {
             dispatch(likePost(_id))
             }}>
             {likeButton}
