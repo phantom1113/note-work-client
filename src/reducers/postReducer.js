@@ -67,8 +67,16 @@ const postsReducer = (state = initialState, action) => {
             const prevDeletePosts = state.posts
             const deletePosts = prevDeletePosts.filter(post => post._id !== action.id)
             return {
-                ...state,
+                ...state,   
                 posts: deletePosts,                
+            }
+        case Types.SEARCH_POST:
+            const filterPost = action.posts.filter(post => 
+               post.body.toLowerCase().includes(action.body.toLowerCase())
+            ) 
+            return {
+                ...state,
+                posts:filterPost
             }
         case Types.CREATE_COMMENT:
         case Types.DELETE_COMMENT:

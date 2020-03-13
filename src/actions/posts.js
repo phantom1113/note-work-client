@@ -109,10 +109,22 @@ export const likePost = (id) => dispatch => {
   }
 }
 
+//Search post
+export const searchPost = (body) => dispatch => {
+  axios.get(Constants.URL_POST)
+  .then(res =>
+    dispatch({
+      type: Types.SEARCH_POST,
+      body: body,
+      posts: res.data
+    })
+  )
+}
+
 //Clear error
 export const clearError = () => dispatch => {
   dispatch({
-    type: Types.CLEAR_ERROR
+    type: Types.CLEAR_ERROR,
   })
 }
 

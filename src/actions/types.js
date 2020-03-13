@@ -1,3 +1,4 @@
+//Post
 export const GET_POSTS = 'GET_POSTS';
 export const GET_POST = 'GET_POST';
 export const LOADING = 'LOADING';
@@ -8,10 +9,15 @@ export const CREATE_POST_FAIL = 'CREATE_POST_FAIL';
 export const CREATE_POST_SUCESS = 'CREATE_POST_SUCESS';
 export const DELETE_POST = 'DELETE_POST';
 export const LIKE_POST = 'LIKE_POST';
+export const SEARCH_POST = 'SEARCH_POST';
+
+//Comment
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const CREATE_COMMENT_FAIL = 'CREATE_COMMENT_FAIL';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+
+//User
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
