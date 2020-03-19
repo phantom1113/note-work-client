@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Confirm, Icon } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux'
 import { deletePost } from '../actions/posts';
-import { deleteComment } from '../actions/comments';
+import { deleteComment } from '../actions/posts';
 
 
 function DeleteButton({ postId, commentId, callback }) {

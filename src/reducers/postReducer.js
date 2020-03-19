@@ -1,5 +1,6 @@
 import * as Types from '../actions/types';
 
+
 const initialState = {
     posts: [],
     post: {},
@@ -27,6 +28,7 @@ const postsReducer = (state = initialState, action) => {
                 loading: false
             };
         case Types.LIKE_POST:
+            action.likeEvent();
             const prevPosts = state.posts
             let arr = [];
             let index = 0
@@ -81,6 +83,7 @@ const postsReducer = (state = initialState, action) => {
         case Types.CREATE_COMMENT:
         case Types.DELETE_COMMENT:
         case Types.UPDATE_COMMENT:
+            action.commentEvent(action.post._id);
             return {
                 ...state,
                 post: action.post

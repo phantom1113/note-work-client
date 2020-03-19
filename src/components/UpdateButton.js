@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Icon, Form, Modal } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux'
 import { useForm } from '../util/form';
-import { updateComment } from '../actions/comments';
+import { updateComment } from '../actions/posts';
 import { clearError } from '../actions/posts';
 
 

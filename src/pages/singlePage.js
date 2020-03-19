@@ -4,7 +4,7 @@ import { Grid, Card, Button, Icon, Label, Image, Form, Responsive } from 'semant
 import moment from 'moment';
 import { convertToken } from '../util/convertToken';
 import { getPost } from '../actions/posts';
-import { createComment } from '../actions/comments';
+import { createComment } from '../actions/posts';
 import { clearError } from '../actions/posts';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
@@ -19,7 +19,6 @@ function SinglePost(props) {
     const { post, loading_post, errors } = useSelector(state => state.posts)
     const nameAuth = convertToken(user.token ? user.token : '')
     let postMarkup;
-
     const deletePostCallback = () => {
         props.history.push('/')
     }

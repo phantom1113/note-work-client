@@ -19,9 +19,8 @@ function LikeButton({ post: { _id, likeCount, likes } }) {
             }
         } else {
             setLiked(false)
-        }
+        }   
     }, [token, likes])
-
     const likeButton = token !== '' ? (
         liked ? (
             <Button color='teal'>
