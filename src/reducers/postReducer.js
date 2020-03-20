@@ -28,7 +28,7 @@ const postsReducer = (state = initialState, action) => {
                 loading: false
             };
         case Types.LIKE_POST:
-            action.likeEvent();
+            action.likeEvent(action.post._id);
             const prevPosts = state.posts
             let arr = [];
             let index = 0
