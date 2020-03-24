@@ -61,6 +61,10 @@ const userReducer = (state = initialState, action) => {
                 isAuthenticated: false,
                 errors: {}
             }
+        case Types.LOAD_USER:
+            return {
+                ...state,
+                user: {...state.user, user: action.user }            }
         default: return { ...state };
     }
 }

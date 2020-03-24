@@ -25,11 +25,11 @@ function SinglePost(props) {
     useEffect(() => {
         dispatch(getPost(postId))
     }, [dispatch, postId])
-
+    console.log(user)
     if (loading_post) {
         postMarkup = <p>Loading post...</p>
     } else {
-        const { _id, body, createdAt, username, comments, likes } =
+        const { _id, body, createdAt, username, comments, likes, urlAvatar } =
             post;
         postMarkup = (
             <React.Fragment>
@@ -40,7 +40,7 @@ function SinglePost(props) {
                                 <Image
                                     floated='right'
                                     size='small'
-                                    src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                                    src={urlAvatar}
                                 />
                             </Grid.Column>
                             <Grid.Column width={10}>
@@ -135,7 +135,7 @@ function SinglePost(props) {
                             <Image
                                 floated='right'
                                 size='mini'
-                                src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                                src={urlAvatar}
                             />
                             <Card.Header>{username}</Card.Header>
                             <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>

@@ -4,13 +4,16 @@ export const useForm = (callback, initialState = {}) => {
     const [values, setValues] = useState(initialState);
 
     const onChange = event => {
-        setValues({...values, [event.target.name] : event.target.value})
-
+        if (event.target.type === 'file') {
+            setValues({ ...values, [event.target.name]: event.target.files[0] })
+        } else {
+            setValues({ ...values, [event.target.name]: event.target.value })
+        }
     };
     const onSubmit = event => {
-        event.preventDefault(); 
+        event.preventDefault();
         callback();
-        setValues({...values, body : ''})
+        setValues({ ...values, body: '' })
     }
 
     return {

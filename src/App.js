@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import { Container } from 'semantic-ui-react'
@@ -8,14 +8,23 @@ import { Provider } from 'react-redux';
 import store from './store/store'
 import MenuBar from './components/MenuBar'
 import ExpireTokenMessage from './components/ExpireTokeMessage';
+import { loadUser } from './actions/user'
 
 function App() {
+
+  useEffect(() => {
+    let token = localStorage.getItem('jwtToken');
+    if(token){
+        store.dispatch(loadUser(token));
+    }
+  })
+
   return (
     <Provider store={store}>
       <Router>
         <Container>
           <MenuBar />
-          <ExpireTokenMessage/>
+          <ExpireTokenMessage />
           <Switch>
             {showContentMenus(routes)}
           </Switch>

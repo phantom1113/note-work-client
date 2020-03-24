@@ -7,14 +7,15 @@ import DeleteButton from '../components/DeleteButton';
 
 
 
-function PostCard({post: {body, createdAt, _id, username, comments, likes} , nameAuth, centered}){
+function PostCard({post: {body, createdAt, _id, username, comments, likes, urlAvatar} , nameAuth, centered, user}){
+    console.log(user)
     return (
         <Card centered={centered} fluid >
             <Card.Content>
                 <Image
+                    style={{width:'80px', height:"80px"}}
                     floated='right'
-                    size='mini'
-                    src='https://react.semantic-ui.com/images/avatar/large/molly.png'
+                    src={urlAvatar}
                 />
                 <Card.Header>{username}</Card.Header>
                 <Card.Meta as={Link} to={`/posts/${_id}`}>

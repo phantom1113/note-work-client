@@ -4,6 +4,7 @@ import { checkToken } from '../util/convertToken';
 import * as Constants from './../constants/constants'
 import * as Types from './types';
 import io from "socket.io-client";
+
 const ENDPOINT = 'http://localhost:5000';
 const socket = io(ENDPOINT)
 const likeEvent = (id) => {
@@ -41,7 +42,7 @@ socket.on('like event from another client', (data) => {
 
 socket.on('comment event from another client', (data) => {
   const words = window.location.pathname.split('/');
-  if (words[2] === data.id) { 
+  if (words[2] === data.id) {
     axios.get(Constants.URL_POST + "/" + data.id)
       .then(res => {
         store.dispatch({
@@ -60,14 +61,17 @@ socket.on('comment event from another client', (data) => {
 socket.io.on('connect_error', (err) => socket.disconnect());
 
 //Get all posts
-export const getPosts = () => dispatch => {
+export const getPosts = (posts) => dispatch => {
   axios.get(Constants.URL_POST)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: Types.GET_POSTS,
         posts: res.data
       })
-    )
+    }
+    ).catch(error => {
+      console.log(error)
+    })
 };
 
 //Set loading all post

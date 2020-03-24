@@ -25,3 +25,4 @@ export const REGISTER_USER_FAIL = 'REGISTER_USER_FAIL';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const TOKEN_EXPIRED ='TOKEN_EXPIRED';
 export const CLEAR_ERROR_USER = 'CLEAR_ERROR_USER';
+export const LOAD_USER = 'LOAD_USER;'

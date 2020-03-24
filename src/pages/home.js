@@ -13,14 +13,31 @@ function Home() {
   const dispatch = useDispatch()
   const { posts, loading, errors } = useSelector(state => state.posts);
   const { isAuthenticated, user } = useSelector(state => state.user);
-  const [activePage, setActivePage] = useState(1)
   const nameAuth = convertToken(user.token ? user.token : '');
+  const [activePage, setActivePage] = useState(1)
   const totalPages = Math.ceil(posts.length / 3);
-
 
   const onChange = (event) => {
     dispatch(searchPost(event.target.value))
   };
+
+  const handlePaginationChange = (e, { activePage }) => {
+    setActivePage(activePage)
+  }
+
+  const itemPage = (activePage) => {
+    if (posts.length !== 0) {
+      if (posts.slice((activePage - 1) * 3, activePage * 3).length !== 0) {
+        return posts.slice((activePage - 1) * 3, activePage * 3)
+      } else {
+        let temp = activePage - 1
+        setActivePage(activePage - 1)
+        return posts.slice((temp - 1) * 3, temp * 3)
+      }
+    } else {
+      return []
+    }
+  }
 
   useEffect(() => {
     dispatch(getPosts());
@@ -28,22 +45,9 @@ function Home() {
   }, [dispatch])
 
 
-  const handlePaginationChange = (e, { activePage }) => {
-    setActivePage(activePage)
-  }
-
-  const itemPage = (activePage) => {
-      if(posts.slice((activePage - 1) * 3, activePage * 3).length !== 0){
-        return posts.slice((activePage - 1) * 3, activePage * 3)
-      } else {
-        let temp = activePage-1
-        setActivePage(activePage - 1)
-        return posts.slice((temp - 1) * 3, temp * 3)
-      }
-  }
   return (
     <React.Fragment>
-      <Responsive maxWidth={991}>
+          <Responsive maxWidth={991}>
         <Grid>
           <Grid.Row className="page-title">
             <Grid.Column>
@@ -69,11 +73,11 @@ function Home() {
                       </Grid.Column>
                     )}
                   </Grid.Row>
-                    {posts &&
+                    {posts.length !== 0 &&
                       posts.map((post) => (
                         <Grid.Row key={post._id}>
                           <Grid.Column key={post._id}>
-                            <PostCard centered={true} post={post} nameAuth={nameAuth} />
+                            <PostCard centered={true} post={post} nameAuth={nameAuth} user={user} />
                           </Grid.Column>
                         </Grid.Row>
                       ))}
@@ -110,12 +114,12 @@ function Home() {
                   {posts &&
                     itemPage(activePage).map((post) => (
                       <Grid.Column key={post._id} style={{ marginBottom: '1.5rem' }}>
-                        <PostCard centered={false} post={post} nameAuth={nameAuth} />
+                        <PostCard centered={false} post={post} nameAuth={nameAuth} user={user}/>
                       </Grid.Column>
                     ))}
                 
               </Grid.Row>
-              <Grid.Row centered>
+             {posts.length !==0 ? <Grid.Row centered>
                 <Pagination
                   activePage={activePage}
                   totalPages={totalPages}
@@ -125,7 +129,7 @@ function Home() {
                   prevItem={null}
                   onPageChange={handlePaginationChange}
                 />
-              </Grid.Row>
+              </Grid.Row> : ''}
             </React.Fragment>
             )
           }

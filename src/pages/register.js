@@ -16,7 +16,8 @@ function Register(props) {
         username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        imageAvatar: Object
     });
 
     function registerUserCallBack() {
@@ -116,6 +117,7 @@ function Register(props) {
                     value={values.confirmPassword}
                     onChange={onChange}
                 />
+                <Form.Input name='imageAvatar' onChange={onChange} label='Image Avatar' type="file" placeholder='Search...' />
                 <Button type='submit' primary>Register</Button>
             </Form>
             {errors.errors && Object.keys(errors.errors).length > 0 && (
