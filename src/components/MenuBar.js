@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import jwtDecode from 'jwt-decode';
 import { Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
@@ -9,7 +10,9 @@ import { logoutUser, clearErrorUser } from '../actions/user'
 
 
 function MenuBar(prop) {
+    let history = useHistory();
     const { isAuthenticated, user } = useSelector(state => state.user)
+
     const dispatch = useDispatch()
 
     const initialState = {
@@ -27,9 +30,8 @@ function MenuBar(prop) {
         initialState.user = decodedToken;
     }
 
-    const pathname = window.location.pathname;
 
-    const path = pathname === '/' ? 'home' : pathname.substr(1);
+    const path = history.location.pathname === '/' ? 'home' : history.location.pathname.substr(1);
     const [activeItem, setActiveItem] = useState(path);
 
     const handleItemClick = (e, { name }) =>{ 
@@ -37,6 +39,10 @@ function MenuBar(prop) {
         dispatch(clearErrorUser())
     };
 
+    useEffect(() => {
+        setActiveItem(path);
+        console.log('render')
+    },[path]);
 
     const menuBar = isAuthenticated ? (
         <Menu pointing secondary size='massive' color='teal'>

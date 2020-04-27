@@ -8,7 +8,6 @@ import DeleteButton from '../components/DeleteButton';
 
 
 function PostCard({post: {body, createdAt, _id, username, comments, likes, urlAvatar} , nameAuth, centered, user}){
-    console.log(user)
     return (
         <Card centered={centered} fluid >
             <Card.Content>
