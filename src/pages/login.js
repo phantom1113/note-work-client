@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Button, Loader, Responsive } from 'semantic-ui-react';
 import { useForm } from '../util/form';
-import { loginUser } from '../actions/user'
+import { loginUser, clearErrorUser } from '../actions/user'
 
-function Login(props) {
+function Login({ history }) {
     const { isAuthenticated, errors } = useSelector(state => state.user)
 
     const dispatch = useDispatch()
@@ -14,13 +14,12 @@ function Login(props) {
         password: '',
     });
 
-
     function loginUserCallback() {
         dispatch(loginUser(values));
     }
 
     if (isAuthenticated) {
-        props.history.goBack();
+        history.goBack();
         return <Loader active inline='centered' />
     };
     return (
@@ -36,6 +35,7 @@ function Login(props) {
                             placehoder='Email...'
                             value={values.email}
                             onChange={onChange}
+                            onFocus={() => dispatch(clearErrorUser())}
                         />
                         <Form.Input
                             label='Password'
@@ -44,6 +44,7 @@ function Login(props) {
                             type='password'
                             value={values.password}
                             onChange={onChange}
+                            onFocus={() => dispatch(clearErrorUser())}
                         />
                         <Button type='submit' primary>Login</Button>
                     </Form>
@@ -68,6 +69,7 @@ function Login(props) {
                             placehoder='Email...'
                             value={values.email}
                             onChange={onChange}
+                            onFocus={() => dispatch(clearErrorUser())}
                         />
                         <Form.Input
                             label='Password'
@@ -76,6 +78,7 @@ function Login(props) {
                             type='password'
                             value={values.password}
                             onChange={onChange}
+                            onFocus={() => dispatch(clearErrorUser())}
                         />
                         <Button type='submit' primary>Login</Button>
                     </Form>

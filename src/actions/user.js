@@ -27,42 +27,50 @@ export const loginUser = (user) => dispatch => {
 
 export const registerUser = (user) => dispatch => {
   const image = user.imageAvatar;
-  const uploadTask = storage.ref(`images/${image.name}`).put(user.imageAvatar);
-  uploadTask.on('state_changed',
-    (snapshot) => {
-      // progrss function ....
-    },
-    (error) => {
-      // error function ....
-      console.log(error);
-    },
-    () => {
-      // complete function ....
-      storage.ref('images').child(image.name).getDownloadURL().then(url => {
-        axios.post(Constants.URL_REGISTER, {
-          username: user.username,
-          email: user.email,
-          password: user.password,
-          confirmPassword: user.confirmPassword,
-          urlAvatar: url
-        })
-          .then(res => {
-            localStorage.setItem('jwtToken', res.data.token);
-            dispatch({
-              type: Types.REGISTER_USER_SUCCESS,
-              user: res.data
-            })
-          }
-          )
-          .catch(error => {
-            dispatch({
-              type: Types.REGISTER_USER_FAIL,
-              errors: error.response.data
-            })
+  console.log(image.name)
+  if (image.name !== 'Object') {
+    const uploadTask = storage.ref(`images/${image.name}`).put(user.imageAvatar);
+    console.log(uploadTask)
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        // progrss function ....
+      },
+      (error) => {
+        // error function ....
+      },
+      () => {
+        // complete function ....
+        storage.ref('images').child(image.name).getDownloadURL().then(url => {
+          axios.post(Constants.URL_REGISTER, {
+            username: user.username,
+            email: user.email,
+            password: user.password,
+            confirmPassword: user.confirmPassword,
+            urlAvatar: url
           })
-        console.log(url);
-      })
-    });
+            .then(res => {
+              localStorage.setItem('jwtToken', res.data.token);
+              dispatch({
+                type: Types.REGISTER_USER_SUCCESS,
+                user: res.data
+              })
+            }
+            )
+            .catch(error => {
+              dispatch({
+                type: Types.REGISTER_USER_FAIL,
+                errors: error.response.data
+              })
+            })
+          console.log(url);
+        })
+      });
+  } else {
+    dispatch({
+      type: Types.REGISTER_USER_FAIL,
+      errors: {errors : { imageAvatar: 'Image Avatar is empty' }}
+    })
+  }
 }
 
 export const logoutUser = () => dispatch => {

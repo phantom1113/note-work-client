@@ -35,6 +35,7 @@ function Register(props) {
         <div>
             <Form onSubmit={onSubmit} noValidate >
                 <h1>Register</h1>
+                <Form.Input name='imageAvatar' onChange={onChange} label='Image Avatar' type="file" placeholder='Search...' />
                 <Form.Input
                     label='Username'
                     name='username'
@@ -85,6 +86,7 @@ function Register(props) {
         <div className='form-container'>
             <Form onSubmit={onSubmit} noValidate >
                 <h1>Register</h1>
+                <Form.Input name='imageAvatar' onChange={onChange} label='Image Avatar' type="file" placeholder='Search...' />
                 <Form.Input
                     label='Username'
                     name='username'
@@ -117,7 +119,6 @@ function Register(props) {
                     value={values.confirmPassword}
                     onChange={onChange}
                 />
-                <Form.Input name='imageAvatar' onChange={onChange} label='Image Avatar' type="file" placeholder='Search...' />
                 <Button type='submit' primary>Register</Button>
             </Form>
             {errors.errors && Object.keys(errors.errors).length > 0 && (
